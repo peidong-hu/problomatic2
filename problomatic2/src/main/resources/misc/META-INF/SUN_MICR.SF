@@ -1,0 +1,16 @@
+Signature-Version: 1.0
+SHA1-Digest-Manifest: o4zFf6x9ZYr++tb57CQvQGLry00=
+Created-By: 1.3.1_04 (Sun Microsystems Inc.)
+
+Name: com/sun/mail/smtp/SMTPOutputStream.class
+SHA1-Digest: 0p1kVNZYH8abdcatkA58cVyFCp4=
+
+Name: com/sun/mail/smtp/SMTPMessage.class
+SHA1-Digest: x5f2tvfxV6ojwYnbY5pL3HAZ2gk=
+
+Name: com/sun/mail/smtp/DigestMD5.class
+SHA1-Digest: 9mHKfCdjUq20HAoz8L0z1ZqhVPg=
+
+Name: com/sun/mail/smtp/SMTPTransport.class
+SHA1-Digest: HUlx23KAQIEuKEYHXzeOTG/3dBM=
+

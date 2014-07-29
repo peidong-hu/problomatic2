@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ Copyright 2004 Stieglitech, LLC.
+
+ This file is part of Prob-lo-Matic
+
+ Prob-lo-Matic is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ Prob-lo-Matic is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with Prob-lo-Matic; if not, write to the Free Software
+ Foundation, Inc 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ -->
+
+<project basedir="." default="instrument.class" name="weave">
+
+    <property name="dist" value="dist/bin"/>
+    <property name="lib" value="lib"/>
+    <property name="buildlib" value="build_lib"/>
+    <property name="classes" value="temp/classes"/>
+    <property name="log4jconfig" value="misc"/>
+
+    <path id="app.classpath">
+        <fileset dir="${lib}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${buildlib}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${dist}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <path id="run.classpath">
+      <pathelement path="${classes}"/>
+    </path>
+    
+    <path id="all.classpath">
+      <path refid="app.classpath"/>
+      <path refid="run.classpath"/>
+      <fileset dir="${log4jconfig}">
+        <include name="log4j.xml"/>
+      </fileset>
+    </path>
+
+	<!-- this is a sample; copy this target to your build.xml and add a fileset appropriate for your project -->
+    <target name="instrument.class">
+      <taskdef name="pweave" classname="org.bigtester.problomatic2.WeaveTask" classpathref="app.classpath"/>
+      <pweave verbose="true">
+        <fileset dir="${classes}/examples">
+          <include name="*.class"/>
+        </fileset>
+      </pweave>
+    </target>
+
+    <target name="runexample">
+      <echo message="Running Instrumentation.class before weaving..."/>
+      <java classname="examples.Instrumentation" classpathref="run.classpath" fork="true"/>
+      <echo message="Weaving problomatic into Instrumentation.class"/>
+      <antcall target="instrument.class"/>
+      <echo message="Running instrumented version of Instrumentation.class"/>
+      <java classname="examples.Instrumentation" classpathref="all.classpath" fork="true"/>
+    </target>
+    
+</project>

@@ -1,0 +1,17 @@
+<!ELEMENT filter (#PCDATA)>
+<!ATTLIST filter from-class CDATA #IMPLIED>
+<!ELEMENT problomatic-configuration (#PCDATA | default-properties | define-chain | always-before | always-after)*>
+<!ELEMENT always-before (#PCDATA | chain-link)*>
+<!ELEMENT default-properties (#PCDATA | property)*>
+<!ATTLIST default-properties handler CDATA #IMPLIED>
+<!ELEMENT always-after (#PCDATA)>
+<!ELEMENT property (#PCDATA)>
+<!ATTLIST property name CDATA #IMPLIED>
+<!ATTLIST property value CDATA #IMPLIED>
+<!ELEMENT chain-link (#PCDATA | properties | property)*>
+<!ATTLIST chain-link handler CDATA #IMPLIED>
+<!ELEMENT properties (#PCDATA)>
+<!ATTLIST properties file CDATA #IMPLIED>
+<!ELEMENT define-chain (#PCDATA | filter | chain-link)*>
+<!ATTLIST define-chain id CDATA #IMPLIED>
+<!ATTLIST define-chain problem-class CDATA #IMPLIED>

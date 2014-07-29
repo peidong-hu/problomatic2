@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<problomatic-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.bigtester.org/problomatic2 file:/home/user/workspace/problomatic2/src/main/resources/misc/problomatic.xsd" xmlns="http://www.bigtester.org/problomatic2">
+    
+    <default-properties handler="org.bigtester.problomatic2.handlers.SystemPrintlnHandler">
+        <property name="test" value="property"/>
+        <property name="second-test" value="property"/>
+    </default-properties>
+    
+    <default-properties handler="org.bigtester.problomatic2.handlers.ClassNotFoundHandler">
+        <property name="classnotfoundhandler.searchRoot" value="/usr"/>
+    </default-properties>
+    
+    <default-properties handler="org.bigtester.problomatic2.handlers.EmailNotificationHandler">
+        <property name="mail.smtp.host" value=""/>
+        <property name="mail.smtp.username" value=""/>
+        <property name="emailnotificationhandler.subject" value="[problomatic-notify]: A message from Problomatic"/>
+        <property name="mail.smtp.password" value=""/>
+        <property name="emailnotificationhandler.sender" value="problomatic@stieglitech.com"/>
+    </default-properties>
+    
+    <define-chain problem="org.bigtester.problomatic2.problems.RawProblem">
+    
+        <chain-link handler="org.bigtester.problomatic2.handlers.SystemPrintlnHandler">
+            <property name="second-test" value="overriddenProperty"/>
+        </chain-link>
+        
+        <!-- When using SpecificHandler, properties cannot be overridden (yet) -->
+        <chain-link handler="org.bigtester.problomatic2.handlers.SpecificHandler">
+            <property name="java.lang.ClassNotFoundException" value="org.bigtester.problomatic2.handlers.ClassNotFoundHandler"/>
+        </chain-link>
+        
+        <!---
+        <chain-link handler="org.bigtester.problomatic2.handlers.EmailNotificationHandler">
+            <property name="emailnotificationhandler.subject" value="[problomatic-notify]: A TEST MESSAGE"/>
+            <property name="emailnotificationhandler.recipients" value="dan@stieglitech.com"/>
+        </chain-link>
+        -->
+    </define-chain>
+    
+</problomatic-configuration>

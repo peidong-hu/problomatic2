@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE problomatic-configuration SYSTEM "file:/home/user/workspace/problomatic2/src/main/resources/misc/problomatic.dtd">
+<problomatic-configuration>
+
+	<!--
+		Specify default properties for a particular handler. Currently, a properties
+		file specifies these
+		NOT IMPLEMENTED YET
+	-->
+	<default-properties handler="org.bigtester.problomatic2.handlers.EmailNotificationHandler">
+		<property name="xxx" value="yyy"/>
+	</default-properties>
+	
+	<default-properties handler="org.bigtester.problomatic2.handlers.SystemPrintlnHandler">
+		<property name="test" value="property"/>
+	</default-properties>
+	
+	<default-properties handler="org.bigtester.problomatic2.handlers.DamageControlHandler">
+		<property name="test" value="property"/>
+	</default-properties>
+
+	<!--
+		Define a chain called 'productionChain' that responds to problems
+		of class 'org.bigtester.problomatic2.problems.GenericThrowableProblem'
+	-->
+	<define-chain id="productionChain" problem-class="org.bigtester.problomatic2.problems.GenericThrowableProblem">
+
+		<!--
+			Constrain 'productionChain' to only accept Problems generated
+			by a particular class
+			NOT IMPLEMENTED YET
+		-->
+		<filter from-class="org.myorg.SomeClassInApp1"/>
+		
+		<!--chain-link handler="org.bigtester.problomatic2.handlers.EmailNotificationHandler"/-->
+		<chain-link handler="org.bigtester.problomatic2.handlers.SystemPrintlnHandler"/>
+	</define-chain>
+	
+	<!--
+		This problem extends GenericThrowableProblem. What is the behaviour of subclassed problems?
+	-->
+
+	<define-chain id="developmentChain" problem-class="examples.problems.SampleDatabaseProblem">
+		<!--chain-link handler="examples.handlers.SampleDatabaseRetryHandler"/-->
+		<chain-link handler="org.bigtester.problomatic2.handlers.SystemPrintlnHandler"/>
+		<chain-link handler="org.bigtester.problomatic2.handlers.DamageControlHandler"/>
+		<!--chain-link handler="org.bigtester.problomatic2.handlers.XMLPersistenceHandler"/-->
+		<!--chain-link handler="org.bigtester.problomatic2.handlers.DatabasePersistenceHandler"/-->
+		<!--chain-link handler="org.bigtester.problomatic2.handlers.XSLTransformationHandler"/-->
+		<chain-link handler="org.bigtester.problomatic2.handlers.BrowserLaunchHandler"/>
+	</define-chain>
+
+    <!--
+    <define-chain problem-class="org.bigtester.problomatic2.problems.ClassNotFoundProblem">
+		<chain-link handler="org.bigtester.problomatic2.handlers.SystemPrintlnHandler"/>
+         <chain-link handler="org.bigtester.problomatic2.handlers.ClassNotFoundHandler"/>
+         <chain-link handler="org.bigtester.problomatic2.handlers.XMLPersistenceHandler"/>
+         <chain-link handler="org.bigtester.problomatic2.handlers.XSLTransformationHandler"/>
+         <chain-link handler="org.bigtester.problomatic2.handlers.BrowserLaunchHandler"/>
+    </define-chain>
+	-->
+	
+	<!--
+		This section defines chain links that are prepended to
+		all defined chains. Also shows how to pass parameters
+		when initializing a chain link (in this case from a properties
+		file).
+		NOT IMPLEMENTED YET
+	-->
+	<always-before>
+		<chain-link handler="org.bigtester.problomatic2.LoggingHandler">
+			<properties file="LoggingConfiguration.properties"/>
+			<property name="MyProperty" value="MyValue"/>
+		</chain-link>
+	</always-before>
+	
+	<!--
+		This section defines chain links that are appended to
+		all defined chains
+		NOT IMPLEMENTED YET
+	-->
+	<always-after>
+	</always-after>
+
+</problomatic-configuration>

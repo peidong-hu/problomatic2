@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:prob="http://www.bigtester.org/problomatic2"
+    targetNamespace="http://www.bigtester.org/problomatic2" elementFormDefault="qualified">
+    
+    <xs:element name="problomatic-configuration" type="prob:problomatic-configuration"/>
+    
+    <xs:complexType name="problomatic-configuration">
+        <xs:sequence>
+            <xs:element name="default-properties" type="prob:default-properties" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="define-chain" type="prob:define-chain" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="default-properties">
+        <xs:sequence>
+            <xs:element name="property" type="prob:property" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="handler" use="required" type="xs:string"/>
+    </xs:complexType>
+    
+    <xs:complexType name="define-chain">
+        <xs:sequence>
+            <xs:element name="chain-link" type="prob:chain-link" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="problem" type="xs:string" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="chain-link">
+        <xs:sequence>
+            <xs:element name="property" type="prob:property" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="handler" type="xs:string" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="property">
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="value" type="xs:string" use="required"/>
+    </xs:complexType>
+</xs:schema>
